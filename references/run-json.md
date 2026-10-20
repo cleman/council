@@ -22,9 +22,17 @@ All text fields are plain text (no HTML). Seat ids are short slugs reused everyw
     {"value": "26", "label": "agent runs"},
     {"value": "0", "label": "reframe flags raised"}
   ],
+  "mode": "Decide",
   "seats": [
     {"id": "con", "name": "Contrarian", "color": "#e03131"},
     {"id": "abs", "name": "Abstainer", "color": "#495057", "new": true}
+  ],
+  "experts": [
+    {"domain": "Public-order law", "experts": ["academic & official", "practice & field"],
+     "hearings": 2, "note": "Divided on how often permits are withdrawn after an arrest"}
+  ],
+  "criteria": [
+    {"criterion": "Every plan adapts when 1–2 sessions are missed", "status": "Met"}
   ],
   "stages": [
     {
@@ -79,5 +87,7 @@ All text fields are plain text (no HTML). Seat ids are short slugs reused everyw
 ```
 
 Grades accepted in `facts.trail[].grade`: `VERIFIED`, `CORROBORATED`, `CREDIBLE`, `ALLEGED`, `CONTRADICTED`, `UNKNOWN`, and free labels such as `NOT FOUND`, `OPEN`, `FLAGGED` (shown in grey).
+
+`experts` renders an "Expert panel" section: one card per domain, listing its source bases, the number of hearings and a note. `criteria` (Design mode) renders an "Acceptance check" section; `status` takes `Met`, `Partly` or `Not met`.
 
 Any section can be omitted; the map renders what is present.

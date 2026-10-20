@@ -59,6 +59,14 @@ Speaks for the people affected but not in the room: customers, employees, pupils
 
 You may swap a core seat for a specialist when the subject makes a core seat redundant (say why in the proposal). Never remove the Contrarian or the Status-quo seat on a contested question.
 
+## Seats in other modes
+
+- **Design / Build:** the same seats become **critics of the artifact**: how it fails, what it's for, what would make it better, whether a newcomer can use it, whether it can be built, what existing solutions already do, whether it holds across profiles. See `modes.md`.
+- **Evaluate:** seats review the existing thing from their angle; at Deep/Full each room takes one dimension.
+- **Explore:** replace First Principles, Expansionist and Executor with **one seat per serious position** (named by the position); keep the Outsider and the Contrarian.
+
+Seats are not experts. A seat argues from an angle. An expert informs from a source base and never recommends (`experts.md`).
+
 ## Seat prompt (shared by all phases)
 
 ```

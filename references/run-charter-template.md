@@ -12,6 +12,12 @@ citizen / EU / non-EU / minor / public servant")>.
 Reader language: <language>. Today: <date>.
 <Prior material: earlier runs, reviews of earlier reports, files the user supplied.>
 
+## Mode
+<Decide | Design / Build (artifact: …; acceptance criteria in criteria.md) | Evaluate (thing: …) | Explore>
+
+## Expert domains
+<domain — source bases (see experts.md)>, …  Two-source rule applies to every claim.
+
 ## Strands / options
 <If the question bundles several distinct options or movements, list them (a), (b), (c)…
 Agents must not merge them.>
@@ -27,5 +33,6 @@ Follow references/quality-charter.md. Run-specific points:
 - …
 
 ## Configuration (as approved by the user)
-Level: <Level>. Research: <…>. Debate: <…>. Fact desk: <…>. Audit: <…>.
+Level: <Level>. Mode: <…>. Research: <…>. Experts: <domains × n>. Debate / design rounds: <…>.
+Fact desk: <…>. Audit: <…>.
 ```

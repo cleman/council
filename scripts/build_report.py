@@ -18,15 +18,17 @@ import re
 HERE = pathlib.Path(__file__).resolve().parent
 TEMPLATE = HERE.parent / "templates" / "report.html"
 
-RATING = {"go": "ok", "caution": "warn", "avoid": "bad"}
+RATING = {"go": "ok", "caution": "warn", "avoid": "bad", "met": "ok", "partly": "warn", "not met": "bad"}
 
 # (heading, glob patterns) in display order; prompts and the verdict itself are excluded
 GROUPS = [
-    ("Charter & room draw", ["charter.md", "rooms.txt"]),
+    ("Charter & room draw", ["charter.md", "criteria.md", "rooms.txt"]),
     ("Research", ["brief*.md", "wg[0-9].md", "wg[0-9]-draft.md"]),
+    ("Expert panel & hearings", ["experts.md", "hearing-[0-9].md", "hearing-[0-9][0-9].md", "hearing-*-*.md"]),
     ("Opening positions", ["opening-*.md", "advisor-*.md"]),
     ("Rebuttals", ["rebuttal-*.md"]),
-    ("Rooms", ["r[0-9]-room*.md"]),
+    ("Rooms", ["r[0-9]-room*.md", "d[0-9]-room*.md"]),
+    ("Design versions & rationale", ["design-v*.md", "rationale.md"]),
     ("Fact desks", ["factdesk*.md"]),
     ("Peer reviews", ["review-[0-9]*.md"]),
     ("Internal audit (same process, not independent)", ["audit*.md"]),

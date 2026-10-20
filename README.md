@@ -1,6 +1,6 @@
 # Council — an adaptive LLM council skill for Claude Code
 
-Put a question or decision in front of a council of AI advisors. They research it, argue, check each other's facts, and hand you a decision report that says what is established, what is contested, and what to do first.
+Put a question, a decision or a design task in front of a council of AI advisors and neutral expert panels. They research it, argue or build, check each other's facts (never on a single source), and hand you a report: a decision, a critique, a map of positions, or a finished artifact improved over several versions.
 
 The council **scales with the question**, and it **always asks before it starts**. A low-stakes choice gets a 2-minute council of 7 agents. A contested, high-stakes, fact-heavy question gets working groups, debate rooms, a fact desk between rounds and an internal audit. You choose between a recommended setup, a smaller one and a larger one, or describe your own.
 
@@ -19,6 +19,9 @@ Built on [tenfoldmarc/llm-council-skill](https://github.com/tenfoldmarc/llm-coun
 | Debate | One round, then anonymous review | Rebuttal round (Standard); **rooms** of randomly drawn seats over several rounds (Deep/Full) |
 | Facts | Not checked | **Fact desk** between rounds; graded claims; dated rules for what can't be known yet |
 | Seats | 5 fixed | 5 core + **Status-quo advocate**, **Context Realist** and specialists chosen per question |
+| Experts | — | **Neutral expert panels**: at least 2 experts per domain, each with a different source base; experts inform, never recommend; heard on request during the run |
+| Sources | — | **Two-source rule**: a claim with one source is capped at ALLEGED and can't justify a recommendation on its own |
+| What it can do | Debate a decision | **Four modes**: Decide, **Design / Build** (an artifact improved over versions against acceptance criteria), Evaluate, Explore |
 | Peer review | 5 identical reviewers | 1–2 reviewers (5 identical ones gave identical reviews in testing) |
 | Quality | — | A **binding quality charter**: neutrality on contested causes, an honest case for not acting, grades that match the method, symmetric source tagging, no self-awarded authority |
 | Loop | — | **Reframe loop**: a room can send the council back to triage |
@@ -45,8 +48,8 @@ Other triggers: `run the council`, `convene the council`, `war room this`, `pres
 
 What happens:
 
-1. **Triage.** The question is rated on stakes, reversibility, need for fresh facts, contestedness, number of strands, personal or legal risk and time pressure, plus anything the subject itself calls for.
-2. **Proposal.** You get the recommended configuration and a smaller and a larger variant, each with its seats, research, rounds, fact desk, audit and approximate cost. Pick one or describe another.
+1. **Triage.** The skill detects the mode and rates the question on stakes, reversibility, need for fresh facts, contestedness, number of strands, personal or legal risk and time pressure, plus anything the subject itself calls for. It lists the knowledge domains that need experts.
+2. **Proposal.** You get the recommended configuration and a smaller and a larger variant. Each shows its mode, seats, research, expert domains, rounds, fact desk, audit and approximate cost; in Design mode, the draft acceptance criteria too. Pick one or describe another.
 3. **Run.** Agents work in parallel, writing to a run folder you can inspect.
 4. **Report.** A decision report, a process map (Deep/Full) and a full transcript.
 
@@ -55,11 +58,22 @@ What happens:
 | Level | Typical question | Process | ≈ Agents | ≈ Time |
 |---|---|---|---|---|
 | **Quick** | "Workshop at $97 or course at $497?" | 5 seats → 1 anonymous reviewer → chairman | 7 | 2–4 min |
-| **Standard** | A real decision with some facts to check | brief research → 5–6 seats → rebuttal → 1–2 reviewers → chairman + self-check | 12–15 | 6–10 min |
-| **Deep** | High stakes, contested, needs current facts | 3 working groups (researcher → verifier) → 7 seats → 2 rounds × 2 rooms → fact desk → chairman → internal audit → revision | 22–28 | 15–25 min |
-| **Full** | Big, divided questions with personal risk | Deep + 3 rounds, red-team room, reframe loop, offer of external review | 30–40 | 25–45 min |
+| **Standard** | A real decision with some facts to check | brief research → 1 expert domain × 2 → 5–6 seats → rebuttal → 1–2 reviewers → chairman + self-check | 14–17 | 6–12 min |
+| **Deep** | High stakes, contested, needs current facts | 3 working groups (researcher → verifier) → 2–3 expert domains × 2 → 7 seats → 2 rounds × 2 rooms → fact desk and hearings → chairman → internal audit → revision | 26–34 | 15–30 min |
+| **Full** | Big, divided questions with personal risk | Deep + 3–4 expert domains, 3 rounds, red-team room, reframe loop, offer of external review | 36–50 | 25–50 min |
 
 Details: [`references/levels.md`](references/levels.md).
+
+## The four modes
+
+| Mode | Example | Output |
+|---|---|---|
+| **Decide** | "Should I join the protest?" | A decision guide, risks by profile, a neutral first step |
+| **Design / Build** | "Create an adaptive, modular running training method." | The artifact itself, improved v1 → v2 → v3 by design rooms against acceptance criteria, plus its rationale and acceptance check |
+| **Evaluate** | "Review my landing page." | Strengths, weaknesses, required fixes, a score with its rubric |
+| **Explore** | "What are the serious positions on X?" | A map of positions, their evidence, where they really disagree |
+
+Details: [`references/modes.md`](references/modes.md). Expert panels: [`references/experts.md`](references/experts.md).
 
 ## Outputs
 
@@ -79,14 +93,17 @@ See [`examples/protest-2026/`](examples/protest-2026/) for a complete Full-level
 SKILL.md                          the orchestrator Claude follows
 references/
   levels.md                       difficulty factors, scoring, levels, variants
+  modes.md                        Decide, Design / Build, Evaluate, Explore
+  experts.md                      expert panels, source bases, two-source rule
   configuration-proposal.md       how the three options are presented
   seats.md                        seat library and selection rules
   quality-charter.md              binding quality rules and grading scale
   report-spec.md                  report sections by level
   run-charter-template.md         the per-run charter every agent reads
   run-json.md                     data schema for the process map
-  protocols/                      prompt templates: working group, opening, rebuttal,
-                                  room, fact desk, peer review, chairman, audit
+  protocols/                      prompt templates: working group, expert hearing, opening,
+                                  rebuttal, room, design room, fact desk, peer review,
+                                  chairman, audit
 scripts/
   draw_rooms.py                   reproducible, balanced random room draw
   build_report.py                 verdict markdown → HTML report (+ transcript)

@@ -17,18 +17,22 @@ GRADE_CLASS = {"VERIFIED": "ver", "CORROBORATED": "ver", "CREDIBLE": "cre", "ALL
                "CONTRADICTED": "con", "UNKNOWN": "unk"}
 
 LABELS = {
-    "en": {"flow": "1 · The flow", "flow_sub": "The debate runs down the left; the fact desk feeds verified answers back in between rounds.",
-           "debate": "Debate", "desk": "Fact desk", "rooms": "2 · Who sat in which room", "seat": "Seat", "total": "Rooms",
-           "facts": "3 · How the facts moved", "facts_sub": "Each claim's grade as successive stages checked it.",
-           "conv": "4 · What converged, what stayed open", "converged": "Converged", "settled": "Settled late",
+    "en": {"flow": "The flow", "flow_sub": "The debate runs down the left; the fact desk feeds verified answers back in between rounds.",
+           "debate": "Debate", "desk": "Fact desk", "rooms": "Who sat in which room", "seat": "Seat", "total": "Rooms",
+           "facts": "How the facts moved", "facts_sub": "Each claim's grade as successive stages checked it.",
+           "conv": "What converged, what stayed open", "converged": "Converged", "settled": "Settled late",
            "open": "Still open", "first": "First step:", "new": "NEW", "loop_used": "Reframe loop used.",
-           "loop_unused": "Closed loop, available but not used."},
-    "fr": {"flow": "1 · Le déroulé", "flow_sub": "Le débat se lit à gauche ; le fact desk réinjecte des réponses vérifiées entre les tours.",
-           "debate": "Débat", "desk": "Fact desk", "rooms": "2 · Qui a siégé dans quelle salle", "seat": "Siège", "total": "Salles",
-           "facts": "3 · Comment les faits ont évolué", "facts_sub": "La note de chaque affirmation au fil des vérifications.",
-           "conv": "4 · Ce qui a convergé, ce qui reste ouvert", "converged": "Convergence", "settled": "Tranché en fin de débat",
+           "loop_unused": "Closed loop, available but not used.",
+           "experts": "Expert panel", "experts_sub": "Neutral experts: at least two per domain, each from a different source base; no claim on a single source.",
+           "hearings": "hearings", "criteria": "Acceptance check", "mode": "Mode"},
+    "fr": {"flow": "Le déroulé", "flow_sub": "Le débat se lit à gauche ; le fact desk réinjecte des réponses vérifiées entre les tours.",
+           "debate": "Débat", "desk": "Fact desk", "rooms": "Qui a siégé dans quelle salle", "seat": "Siège", "total": "Salles",
+           "facts": "Comment les faits ont évolué", "facts_sub": "La note de chaque affirmation au fil des vérifications.",
+           "conv": "Ce qui a convergé, ce qui reste ouvert", "converged": "Convergence", "settled": "Tranché en fin de débat",
            "open": "Toujours ouvert", "first": "Première étape :", "new": "NOUVEAU", "loop_used": "Boucle de recadrage utilisée.",
-           "loop_unused": "Boucle de recadrage disponible, non utilisée."},
+           "loop_unused": "Boucle de recadrage disponible, non utilisée.",
+           "experts": "Panel d'experts", "experts_sub": "Experts neutres : au moins deux par domaine, chacun sur une base de sources différente ; aucune affirmation sur une source unique.",
+           "hearings": "auditions", "criteria": "Critères d'acceptation", "mode": "Mode"},
 }
 
 e = lambda s: html.escape(str(s), quote=True)
@@ -72,7 +76,8 @@ def build(data):
     seats = {s["id"]: s for s in data.get("seats", [])}
     b = [f'<h1>{e(data.get("title", "How the council reached its verdict"))}</h1>']
     if data.get("question"):
-        b.append(f'<p class="lede">{e(data["question"])}' + (f' · {e(data.get("level"))}' if data.get("level") else "") + "</p>")
+        tags = " · ".join(e(x) for x in (data.get("mode"), data.get("level")) if x)
+        b.append(f'<p class="lede">{e(data["question"])}' + (f" · {tags}" if tags else "") + "</p>")
     if data.get("stats"):
         b.append('<div class="stats">' + "".join(f'<div class="stat"><b>{e(s["value"])}</b><span>{e(s["label"])}</span></div>' for s in data["stats"]) + "</div>")
     if seats:
@@ -107,6 +112,28 @@ def build(data):
             n = len(fin.get("cards", [])) + (1 if fin.get("verdict") else 0)
             cls = "r3" if n >= 3 else "r2" if n == 2 else ""
             b.append(f'<section class="stage"><span class="num">{len(stages)}</span><h3>{e(fin.get("title", ""))}</h3><div class="row {cls}">{cards}</div></section><div class="spacer"></div>')
+        b.append("</div>")
+
+    # expert panel
+    experts = data.get("experts", [])
+    if experts:
+        b.append(f'<h2>{L["experts"]}</h2><p class="sub">{L["experts_sub"]}</p><div class="row r3">')
+        for d in experts:
+            bases = "".join(f'<i>{e(x)}</i>' for x in d.get("experts", []))
+            n = d.get("hearings")
+            hear = f' · {e(n)} {L["hearings"][:-1] if str(n) == "1" else L["hearings"]}' if n else ""
+            note = f'<div class="out">{e(d["note"])}</div>' if d.get("note") else ""
+            b.append(f'<div class="card mini"><b>{e(d.get("domain", ""))}{hear}</b><div class="pipe">{bases}</div>{note}</div>')
+        b.append("</div>")
+
+    # acceptance criteria (design mode)
+    crit = data.get("criteria", [])
+    if crit:
+        cls = {"met": "ver", "partly": "all", "not met": "con"}
+        b.append(f'<h2>{L["criteria"]}</h2><div class="evo">')
+        for c in crit:
+            st = str(c.get("status", "")).strip()
+            b.append(f'<div class="ev"><div class="claim">{e(c.get("criterion", ""))}</div><div class="trail"><span class="g {cls.get(st.lower(), "unk")}">{e(st or "?")}</span></div></div>')
         b.append("</div>")
 
     # rooms matrix
