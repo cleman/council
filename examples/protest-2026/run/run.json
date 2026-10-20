@@ -1,0 +1,94 @@
+{
+  "title": "How Council 2 reached its verdict",
+  "question": "Should I personally take part in the French protests of autumn 2026?",
+  "date": "2026-10-20",
+  "lang": "en",
+  "level": "Full",
+  "process": [
+    "Working groups: three groups (events & policing, movements & calendar, law & risk), each a researcher then an adversarial verifier.",
+    "Seven seats, including two new ones (Abstainer, Local Realist), wrote independent opening positions.",
+    "Three rounds of two rooms, 4 of 7 seats drawn at random per room; each room reported agreements, disagreements, information requests and a reframe flag.",
+    "Fact desk between rounds (five passes); reframe loop available, not used.",
+    "Chairman draft → internal quality audit (same process) → revision; v3 after an external review."
+  ],
+  "stats": [
+    {"value": "26", "label": "agent runs"},
+    {"value": "3", "label": "working groups (each researched, then verified)"},
+    {"value": "7", "label": "council seats"},
+    {"value": "6", "label": "rooms over 3 rounds"},
+    {"value": "5", "label": "fact-desk passes"},
+    {"value": "0", "label": "reframe flags raised"},
+    {"value": "8/10", "label": "external review of the final report"}
+  ],
+  "seats": [
+    {"id": "con", "name": "Contrarian", "color": "#e03131"},
+    {"id": "fp", "name": "First Principles", "color": "#7048e8"},
+    {"id": "exp", "name": "Expansionist", "color": "#2f9e44"},
+    {"id": "out", "name": "Outsider", "color": "#e8590c"},
+    {"id": "exe", "name": "Executor", "color": "#1c7ed6"},
+    {"id": "abs", "name": "Abstainer", "color": "#5c5f66", "new": true},
+    {"id": "lr", "name": "Local Realist", "color": "#0c8599", "new": true}
+  ],
+  "stages": [
+    {"title": "Working groups", "subtitle": "a researcher, then an adversarial verifier",
+     "cards": [
+       {"title": "WG1 · Events & policing", "pipe": ["research", "verify"], "text": "Violence started around midday at assembly points. A second death was reported (cause unknown). A parliamentary inquiry was voted."},
+       {"title": "WG2 · Movements & calendar", "pipe": ["research", "verify"], "text": "Four distinct strands. The '12 Nov' date is unsupported. The Bordeaux '5 Nov' link shows the 13 Oct route."},
+       {"title": "WG3 · Law & risk", "pipe": ["research", "verify"], "text": "EU and non-EU residents face different rules. Kettling is still lawful. An arrest leaves a TAJ police-file entry."}
+     ]},
+    {"title": "Opening positions", "subtitle": "7 seats, written independently",
+     "seats_list": ["con", "fp", "exp", "out", "exe", "abs", "lr"],
+     "note": "6 of 7 seats asked the same question: did the budget's Part 1 pass the 20 Oct vote?",
+     "desk": {"title": "Fact desks 1 & 2", "items": ["Part 1 result: not yet published", "'Mid-sized cities are safer': contradicted", "How often permits are withdrawn after an arrest: unknown"]}},
+    {"title": "Round 1", "subtitle": "leverage & risk",
+     "cards": [
+       {"title": "Room A · Is there a leverage window?", "members": ["exp", "fp", "lr", "out"], "text": "Leverage differs by strand. 5 Nov stays relevant under every budget scenario.", "flag": "reframe? NO"},
+       {"title": "Room B · How risky, really?", "members": ["abs", "con", "lr", "out"], "text": "'Mid-sized cities are safer' retired. Risk depends on position in the march and time of day.", "flag": "reframe? NO"}
+     ],
+     "desk": {"title": "Fact desk 3", "items": ["2,397 arrests confirmed as the latest count", "Arrests per participant: 0.06% (Brest) to 0.8% (Paris, Bordeaux)", "The 2025 budget's '1 vote to 404' rejection confirmed"]}},
+    {"title": "Round 2", "subtitle": "building the tools",
+     "cards": [
+       {"title": "Room A · Decision tree", "members": ["con", "exp", "fp", "lr"], "text": "Your strand × the budget outcome → what to do. Neutral on the merits of every demand.", "flag": "reframe? NO"},
+       {"title": "Room B · Risk matrix", "members": ["con", "fp", "lr", "out"], "text": "8 profiles × 5 formats → Go / Caution / Avoid, plus a kettling plan.", "flag": "reframe? NO"}
+     ],
+     "desk": {"title": "Fact desk 4", "items": ["Part 1 still not voted on; only 7 of 58 articles examined", "Facts that can't be known today become dated decision rules"]}},
+    {"title": "Round 3", "subtitle": "integrate & red-team",
+     "cards": [
+       {"title": "Room A · Draft recommendation", "members": ["abs", "exe", "fp", "lr"], "text": "A neutral first step, an abstention paragraph all four accepted as fair, actions for this week.", "flag": "reframe? NO"},
+       {"title": "Room B · Red team", "members": ["abs", "con", "fp", "lr"], "text": "Settled 2 of the 3 contested cells. Listed every remaining breach of the quality rules.", "flag": "reframe? NO"}
+     ],
+     "desk": {"title": "Fact desk 5", "items": ["Joining an undeclared march is not an offence (Cour de cassation, 2022)", "Joining a banned one: a €135 fine", "Stun grenades cleared for use again: unknown"]}}
+  ],
+  "loop": {"used": false, "text": "Any room could raise a reframe flag and send the council back to triage. All six rooms judged that the facts refined the question rather than overturning it."},
+  "final": {
+    "title": "Chairman → audit → revision",
+    "cards": [
+      {"title": "Chairman's draft", "text": "12 sections, written by a separate agent with no seat on the council."},
+      {"title": "Internal quality audit", "text": "11 required fixes, among them one line that took a side, the fine amounts, the face-covering offence, unused glossary terms."}
+    ],
+    "verdict": "The answer depends on your demand and your risk profile. Staying home is legitimate. If you go, choose a declared daytime march, walk in the main body and leave early.",
+    "first_step": "Write: I want [outcome] from [decision-maker] by [date]."
+  },
+  "rooms": [
+    {"label": "R1 · A", "members": ["exp", "fp", "lr", "out"]},
+    {"label": "R1 · B", "members": ["abs", "con", "lr", "out"]},
+    {"label": "R2 · A", "members": ["con", "exp", "fp", "lr"]},
+    {"label": "R2 · B", "members": ["con", "fp", "lr", "out"]},
+    {"label": "R3 · A", "members": ["abs", "exe", "fp", "lr"]},
+    {"label": "R3 · B", "members": ["abs", "con", "fp", "lr"]}
+  ],
+  "rooms_note": "Each room drew 4 of the 7 seats at random (seed 20261020), without balancing: the Local Realist sat in every room and the Executor in one. scripts/draw_rooms.py --balance now prevents this.",
+  "facts": [
+    {"claim": "2,397 arrests on 17 Oct", "trail": [{"grade": "CORROBORATED", "who": "WG1"}, {"grade": "CONTRADICTED", "who": "Fact desk 2"}, {"grade": "CORROBORATED", "who": "Fact desk 3: latest provisional count, superseding 1,200 → 1,800"}]},
+    {"claim": "'Mid-sized cities are safer'", "trail": [{"grade": "CREDIBLE", "who": "openings"}, {"grade": "CONTRADICTED", "who": "Fact desk 2 (Grenoble, Rennes, Brest)"}]},
+    {"claim": "Interior Ministry denied Mediapart's report", "trail": [{"grade": "NOT FOUND", "who": "first report's brief"}, {"grade": "CREDIBLE", "who": "WG1: only as its reply quoted inside Mediapart's article"}]},
+    {"claim": "Education budget debated '12 Nov'", "trail": [{"grade": "ALLEGED", "who": "first report"}, {"grade": "UNKNOWN", "who": "WG2: and only debated at all if Part 1 passes"}]},
+    {"claim": "Stun grenades cleared for use again on 16 Oct", "trail": [{"grade": "CREDIBLE", "who": "WG3 verifier"}, {"grade": "UNKNOWN", "who": "Fact desk 5: only the ASSD model was ever suspended"}]},
+    {"claim": "Joining an undeclared march is an offence", "trail": [{"grade": "OPEN", "who": "R3 · B request"}, {"grade": "CONTRADICTED", "who": "Fact desk 5 / audit: Cour de cassation 2022 and 2023"}]}
+  ],
+  "convergence": {
+    "converged": ["Four strands, not one movement", "Advice depends on your goal; no side taken on any demand", "Abstaining is legitimate", "Your profile can override everything else"],
+    "settled": ["Non-EU, temporary card at a union march: Avoid", "Non-EU, 10-year card: Caution", "Adult at an undeclared daytime event: a decision rule, not a grade", "Minor at a lycéen march in the holidays: Avoid"],
+    "open": ["Abstainer vs Local Realist: stay home until 5 Nov, or decide by city and hour?", "Does a strike's size shape the budget text under 49.3?", "Does the 17 Oct grievance need the street, given the inquiry?"]
+  }
+}

@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How Council 2 reached its verdict</title>
+<style>
+:root{
+  --bg:#f7f7f5;--fg:#1c1c1e;--muted:#6b6b70;--line:#dcdcd8;--card:#ffffff;--soft:#f0f0ec;
+  --accent:#3b5bdb;--fact:#0b7285;--factbg:#e3f6f8;--loop:#ae3ec9;
+  --ok:#2f9e44;--warn:#d9480f;--bad:#c92a2a;--unk:#868e96;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#121214;--fg:#ececef;--muted:#9a9aa2;--line:#2e2e34;--card:#1b1b1f;--soft:#222227;
+  --accent:#7c95ff;--fact:#3bc9db;--factbg:#0f2a2f;--loop:#da77f2;}}
+:root[data-theme="dark"]{
+  --bg:#121214;--fg:#ececef;--muted:#9a9aa2;--line:#2e2e34;--card:#1b1b1f;--soft:#222227;
+  --accent:#7c95ff;--fact:#3bc9db;--factbg:#0f2a2f;--loop:#da77f2;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+main{max-width:1040px;margin:0 auto;padding:32px 16px 56px}
+h1{font-size:1.7rem;margin:0 0 4px;line-height:1.2}
+h2{font-size:1.15rem;margin:44px 0 6px}
+.lede{color:var(--muted);margin:0 0 18px}
+.sub{color:var(--muted);font-size:.9rem;margin:0 0 14px}
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:18px 0 6px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.stat b{display:block;font-size:1.6rem;line-height:1.1}
+.stat span{color:var(--muted);font-size:.82rem}
+/* legend */
+.legend{display:flex;flex-wrap:wrap;gap:8px 14px;margin:10px 0 0;font-size:.85rem}
+.seat{display:inline-flex;align-items:center;gap:6px}
+.dot{width:12px;height:12px;border-radius:50%;display:inline-block;flex:none}
+/* flow */
+.flow{position:relative;display:grid;grid-template-columns:1fr 250px;gap:0 18px}
+.lane-h{font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:0 0 8px}
+.lane-h.fact{color:var(--fact)}
+.stage{grid-column:1;position:relative;padding:0 0 26px 34px}
+.stage::before{content:"";position:absolute;left:11px;top:26px;bottom:0;width:2px;background:var(--line)}
+.stage:last-of-type::before{display:none}
+.num{position:absolute;left:0;top:2px;width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;font-size:.8rem;font-weight:700;display:grid;place-items:center}
+.stage h3{margin:0 0 8px;font-size:1rem}
+.stage h3 small{color:var(--muted);font-weight:500}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.row{display:grid;gap:10px}
+.r3{grid-template-columns:repeat(3,1fr)}.r2{grid-template-columns:repeat(2,1fr)}
+.mini{font-size:.86rem}
+.mini b{display:block;margin-bottom:2px}
+.pipe{display:flex;align-items:center;gap:6px;font-size:.78rem;color:var(--muted);margin:4px 0 6px}
+.pipe i{font-style:normal;background:var(--soft);border-radius:6px;padding:1px 7px;color:var(--fg)}
+.out{font-size:.84rem;color:var(--muted);margin-top:6px;border-top:1px dashed var(--line);padding-top:6px}
+.out strong{color:var(--fg)}
+.room .members{display:flex;gap:4px;margin:4px 0 6px}
+.room .members .dot{width:16px;height:16px;border:2px solid var(--card);box-shadow:0 0 0 1px var(--line)}
+.focus{font-size:.84rem;font-style:italic;color:var(--muted)}
+.flag{display:inline-block;font-size:.72rem;font-weight:700;border-radius:99px;padding:1px 8px;margin-top:6px;border:1px solid var(--loop);color:var(--loop)}
+.seats7{display:flex;flex-wrap:wrap;gap:6px}
+.seats7 .s{display:flex;align-items:center;gap:6px;background:var(--soft);border-radius:99px;padding:3px 10px 3px 6px;font-size:.82rem}
+.new{font-size:.66rem;font-weight:700;color:var(--accent);margin-left:2px}
+/* fact desk lane */
+.desk{grid-column:2;align-self:start;background:var(--factbg);border:1px solid var(--fact);border-radius:12px;padding:10px 12px;font-size:.83rem;position:relative;margin-bottom:26px}
+.desk::before{content:"";position:absolute;left:-19px;top:18px;width:18px;border-top:2px dashed var(--fact)}
+.desk b{color:var(--fact);display:block;margin-bottom:3px}
+.desk ul{margin:0;padding-left:16px}
+.desk li{margin:2px 0}
+.spacer{grid-column:2}
+/* loop */
+.loop{grid-column:1/-1;border:2px dashed var(--loop);border-radius:12px;padding:10px 14px;margin:0 0 26px;font-size:.88rem;display:flex;gap:12px;align-items:center}
+.loop svg{flex:none}
+/* matrix */
+.mx{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:.86rem}
+.mx th,.mx td{padding:8px 6px;text-align:center;border-bottom:1px solid var(--line)}
+.mx th:first-child,.mx td:first-child{text-align:left;padding-left:12px;white-space:nowrap}
+.mx th{background:var(--soft);font-weight:600;font-size:.8rem}
+.mx td .dot{width:14px;height:14px}
+.mx .tot{font-weight:700}
+.empty{color:var(--line)}
+/* fact evolution */
+.evo{display:grid;gap:8px}
+.ev{display:grid;grid-template-columns:minmax(150px,1.1fr) 3fr;gap:12px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.ev .claim{font-size:.88rem;font-weight:600}
+.trail{display:flex;flex-wrap:wrap;align-items:center;gap:4px;font-size:.78rem}
+.trail .arr{color:var(--muted)}
+.g{border-radius:99px;padding:2px 8px;font-weight:700;color:#fff;white-space:nowrap}
+.g.ver{background:var(--ok)}.g.cre{background:#5c940d}.g.all{background:var(--warn)}.g.con{background:var(--bad)}.g.unk{background:var(--unk)}
+.who{color:var(--muted);font-size:.74rem}
+/* convergence */
+.conv{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.conv .card h4{margin:0 0 6px;font-size:.9rem}
+.conv ul{margin:0;padding-left:18px;font-size:.85rem}
+.verdict{background:var(--accent);color:#fff;border-radius:12px;padding:14px 16px}
+.verdict .out{color:#e7ebff;border-top-color:rgba(255,255,255,.35)}
+.verdict .out strong{color:#fff}
+footer{margin-top:40px;color:var(--muted);font-size:.82rem;border-top:1px solid var(--line);padding-top:12px}
+@media (max-width:760px){
+  .flow{grid-template-columns:1fr}
+  .desk{grid-column:1;margin:-12px 0 26px 34px}
+  .desk::before{display:none}
+  .spacer{display:none}
+  .r3,.r2,.conv{grid-template-columns:1fr}
+  .ev{grid-template-columns:1fr}
+  .mx{font-size:.78rem}
+}
+</style>
+</head>
+<body><main>
+<h1>How Council 2 reached its verdict</h1>
+<p class="lede">Should I personally take part in the French protests of autumn 2026? · Full</p>
+<div class="stats"><div class="stat"><b>26</b><span>agent runs</span></div><div class="stat"><b>3</b><span>working groups (each researched, then verified)</span></div><div class="stat"><b>7</b><span>council seats</span></div><div class="stat"><b>6</b><span>rooms over 3 rounds</span></div><div class="stat"><b>5</b><span>fact-desk passes</span></div><div class="stat"><b>0</b><span>reframe flags raised</span></div><div class="stat"><b>8/10</b><span>external review of the final report</span></div></div>
+<div class="legend"><span class="seat"><i class="dot" style="background:#e03131" title="Contrarian"></i>Contrarian</span><span class="seat"><i class="dot" style="background:#7048e8" title="First Principles"></i>First Principles</span><span class="seat"><i class="dot" style="background:#2f9e44" title="Expansionist"></i>Expansionist</span><span class="seat"><i class="dot" style="background:#e8590c" title="Outsider"></i>Outsider</span><span class="seat"><i class="dot" style="background:#1c7ed6" title="Executor"></i>Executor</span><span class="seat"><i class="dot" style="background:#5c5f66" title="Abstainer"></i>Abstainer</span><span class="seat"><i class="dot" style="background:#0c8599" title="Local Realist"></i>Local Realist</span></div>
+<h2>1 · The flow</h2><p class="sub">The debate runs down the left; the fact desk feeds verified answers back in between rounds.</p><div class="flow">
+<div class="lane-h">Debate</div><div class="lane-h fact">Fact desk</div>
+<section class="stage"><span class="num">0</span><h3>Working groups <small>· a researcher, then an adversarial verifier</small></h3><div class="row r3"><div class="card mini"><b>WG1 · Events &amp; policing</b><div class="pipe"><i>research</i>→<i>verify</i></div>Violence started around midday at assembly points. A second death was reported (cause unknown). A parliamentary inquiry was voted.</div><div class="card mini"><b>WG2 · Movements &amp; calendar</b><div class="pipe"><i>research</i>→<i>verify</i></div>Four distinct strands. The &#x27;12 Nov&#x27; date is unsupported. The Bordeaux &#x27;5 Nov&#x27; link shows the 13 Oct route.</div><div class="card mini"><b>WG3 · Law &amp; risk</b><div class="pipe"><i>research</i>→<i>verify</i></div>EU and non-EU residents face different rules. Kettling is still lawful. An arrest leaves a TAJ police-file entry.</div></div></section>
+<div class="spacer"></div>
+<section class="stage"><span class="num">1</span><h3>Opening positions <small>· 7 seats, written independently</small></h3><div class="card"><div class="seats7"><span class="s"><i class="dot" style="background:#e03131" title="Contrarian"></i>Contrarian</span><span class="s"><i class="dot" style="background:#7048e8" title="First Principles"></i>First Principles</span><span class="s"><i class="dot" style="background:#2f9e44" title="Expansionist"></i>Expansionist</span><span class="s"><i class="dot" style="background:#e8590c" title="Outsider"></i>Outsider</span><span class="s"><i class="dot" style="background:#1c7ed6" title="Executor"></i>Executor</span><span class="s"><i class="dot" style="background:#5c5f66" title="Abstainer"></i>Abstainer<span class="new">NEW</span></span><span class="s"><i class="dot" style="background:#0c8599" title="Local Realist"></i>Local Realist<span class="new">NEW</span></span></div><div class="out">6 of 7 seats asked the same question: did the budget&#x27;s Part 1 pass the 20 Oct vote?</div></div></section>
+<aside class="desk"><b>Fact desks 1 &amp; 2</b><ul><li>Part 1 result: not yet published</li><li>&#x27;Mid-sized cities are safer&#x27;: contradicted</li><li>How often permits are withdrawn after an arrest: unknown</li></ul></aside>
+<section class="stage"><span class="num">2</span><h3>Round 1 <small>· leverage &amp; risk</small></h3><div class="row r2"><div class="card mini room"><b>Room A · Is there a leverage window?</b><div class="members"><i class="dot" style="background:#2f9e44;width:16px;height:16px" title="Expansionist"></i><i class="dot" style="background:#7048e8;width:16px;height:16px" title="First Principles"></i><i class="dot" style="background:#0c8599;width:16px;height:16px" title="Local Realist"></i><i class="dot" style="background:#e8590c;width:16px;height:16px" title="Outsider"></i></div><div class="focus">Leverage differs by strand. 5 Nov stays relevant under every budget scenario.</div><span class="flag">reframe? NO</span></div><div class="card mini room"><b>Room B · How risky, really?</b><div class="members"><i class="dot" style="background:#5c5f66;width:16px;height:16px" title="Abstainer"></i><i class="dot" style="background:#e03131;width:16px;height:16px" title="Contrarian"></i><i class="dot" style="background:#0c8599;width:16px;height:16px" title="Local Realist"></i><i class="dot" style="background:#e8590c;width:16px;height:16px" title="Outsider"></i></div><div class="focus">&#x27;Mid-sized cities are safer&#x27; retired. Risk depends on position in the march and time of day.</div><span class="flag">reframe? NO</span></div></div></section>
+<aside class="desk"><b>Fact desk 3</b><ul><li>2,397 arrests confirmed as the latest count</li><li>Arrests per participant: 0.06% (Brest) to 0.8% (Paris, Bordeaux)</li><li>The 2025 budget&#x27;s &#x27;1 vote to 404&#x27; rejection confirmed</li></ul></aside>
+<section class="stage"><span class="num">3</span><h3>Round 2 <small>· building the tools</small></h3><div class="row r2"><div class="card mini room"><b>Room A · Decision tree</b><div class="members"><i class="dot" style="background:#e03131;width:16px;height:16px" title="Contrarian"></i><i class="dot" style="background:#2f9e44;width:16px;height:16px" title="Expansionist"></i><i class="dot" style="background:#7048e8;width:16px;height:16px" title="First Principles"></i><i class="dot" style="background:#0c8599;width:16px;height:16px" title="Local Realist"></i></div><div class="focus">Your strand × the budget outcome → what to do. Neutral on the merits of every demand.</div><span class="flag">reframe? NO</span></div><div class="card mini room"><b>Room B · Risk matrix</b><div class="members"><i class="dot" style="background:#e03131;width:16px;height:16px" title="Contrarian"></i><i class="dot" style="background:#7048e8;width:16px;height:16px" title="First Principles"></i><i class="dot" style="background:#0c8599;width:16px;height:16px" title="Local Realist"></i><i class="dot" style="background:#e8590c;width:16px;height:16px" title="Outsider"></i></div><div class="focus">8 profiles × 5 formats → Go / Caution / Avoid, plus a kettling plan.</div><span class="flag">reframe? NO</span></div></div></section>
+<aside class="desk"><b>Fact desk 4</b><ul><li>Part 1 still not voted on; only 7 of 58 articles examined</li><li>Facts that can&#x27;t be known today become dated decision rules</li></ul></aside>
+<section class="stage"><span class="num">4</span><h3>Round 3 <small>· integrate &amp; red-team</small></h3><div class="row r2"><div class="card mini room"><b>Room A · Draft recommendation</b><div class="members"><i class="dot" style="background:#5c5f66;width:16px;height:16px" title="Abstainer"></i><i class="dot" style="background:#1c7ed6;width:16px;height:16px" title="Executor"></i><i class="dot" style="background:#7048e8;width:16px;height:16px" title="First Principles"></i><i class="dot" style="background:#0c8599;width:16px;height:16px" title="Local Realist"></i></div><div class="focus">A neutral first step, an abstention paragraph all four accepted as fair, actions for this week.</div><span class="flag">reframe? NO</span></div><div class="card mini room"><b>Room B · Red team</b><div class="members"><i class="dot" style="background:#5c5f66;width:16px;height:16px" title="Abstainer"></i><i class="dot" style="background:#e03131;width:16px;height:16px" title="Contrarian"></i><i class="dot" style="background:#7048e8;width:16px;height:16px" title="First Principles"></i><i class="dot" style="background:#0c8599;width:16px;height:16px" title="Local Realist"></i></div><div class="focus">Settled 2 of the 3 contested cells. Listed every remaining breach of the quality rules.</div><span class="flag">reframe? NO</span></div></div></section>
+<aside class="desk"><b>Fact desk 5</b><ul><li>Joining an undeclared march is not an offence (Cour de cassation, 2022)</li><li>Joining a banned one: a €135 fine</li><li>Stun grenades cleared for use again: unknown</li></ul></aside>
+<div class="loop"><svg width="46" height="34" viewBox="0 0 46 34" aria-hidden="true"><path d="M40 28 H12 a9 9 0 0 1 0-18 H34" fill="none" stroke="currentColor" stroke-width="2.5" stroke-dasharray="4 3" style="color:var(--loop)"/><path d="M30 5 l6 5 -6 5" fill="none" stroke="currentColor" stroke-width="2.5" style="color:var(--loop)"/></svg><div><strong style="color:var(--loop)">Closed loop, available but not used.</strong> Any room could raise a reframe flag and send the council back to triage. All six rooms judged that the facts refined the question rather than overturning it.</div></div>
+<section class="stage"><span class="num">5</span><h3>Chairman → audit → revision</h3><div class="row r3"><div class="card mini"><b>Chairman&#x27;s draft</b>12 sections, written by a separate agent with no seat on the council.</div><div class="card mini"><b>Internal quality audit</b>11 required fixes, among them one line that took a side, the fine amounts, the face-covering offence, unused glossary terms.</div><div class="card mini verdict"><b>Verdict</b>The answer depends on your demand and your risk profile. Staying home is legitimate. If you go, choose a declared daytime march, walk in the main body and leave early.<div class="out"><strong>First step:</strong> Write: I want [outcome] from [decision-maker] by [date].</div></div></div></section><div class="spacer"></div>
+</div>
+<h2>2 · Who sat in which room</h2>
+<p class="sub">Each room drew 4 of the 7 seats at random (seed 20261020), without balancing: the Local Realist sat in every room and the Executor in one. scripts/draw_rooms.py --balance now prevents this.</p>
+<div style="overflow-x:auto"><table class="mx"><tr><th>Seat</th><th>R1 · A</th><th>R1 · B</th><th>R2 · A</th><th>R2 · B</th><th>R3 · A</th><th>R3 · B</th><th>Rooms</th></tr><tr><td><span class="seat"><i class="dot" style="background:#e03131" title="Contrarian"></i>Contrarian</span></td><td class="empty">·</td><td><i class="dot" style="background:#e03131" title="Contrarian"></i></td><td><i class="dot" style="background:#e03131" title="Contrarian"></i></td><td><i class="dot" style="background:#e03131" title="Contrarian"></i></td><td class="empty">·</td><td><i class="dot" style="background:#e03131" title="Contrarian"></i></td><td class="tot">4</td></tr><tr><td><span class="seat"><i class="dot" style="background:#7048e8" title="First Principles"></i>First Principles</span></td><td><i class="dot" style="background:#7048e8" title="First Principles"></i></td><td class="empty">·</td><td><i class="dot" style="background:#7048e8" title="First Principles"></i></td><td><i class="dot" style="background:#7048e8" title="First Principles"></i></td><td><i class="dot" style="background:#7048e8" title="First Principles"></i></td><td><i class="dot" style="background:#7048e8" title="First Principles"></i></td><td class="tot">5</td></tr><tr><td><span class="seat"><i class="dot" style="background:#2f9e44" title="Expansionist"></i>Expansionist</span></td><td><i class="dot" style="background:#2f9e44" title="Expansionist"></i></td><td class="empty">·</td><td><i class="dot" style="background:#2f9e44" title="Expansionist"></i></td><td class="empty">·</td><td class="empty">·</td><td class="empty">·</td><td class="tot">2</td></tr><tr><td><span class="seat"><i class="dot" style="background:#e8590c" title="Outsider"></i>Outsider</span></td><td><i class="dot" style="background:#e8590c" title="Outsider"></i></td><td><i class="dot" style="background:#e8590c" title="Outsider"></i></td><td class="empty">·</td><td><i class="dot" style="background:#e8590c" title="Outsider"></i></td><td class="empty">·</td><td class="empty">·</td><td class="tot">3</td></tr><tr><td><span class="seat"><i class="dot" style="background:#1c7ed6" title="Executor"></i>Executor</span></td><td class="empty">·</td><td class="empty">·</td><td class="empty">·</td><td class="empty">·</td><td><i class="dot" style="background:#1c7ed6" title="Executor"></i></td><td class="empty">·</td><td class="tot">1</td></tr><tr><td><span class="seat"><i class="dot" style="background:#5c5f66" title="Abstainer"></i>Abstainer</span></td><td class="empty">·</td><td><i class="dot" style="background:#5c5f66" title="Abstainer"></i></td><td class="empty">·</td><td class="empty">·</td><td><i class="dot" style="background:#5c5f66" title="Abstainer"></i></td><td><i class="dot" style="background:#5c5f66" title="Abstainer"></i></td><td class="tot">3</td></tr><tr><td><span class="seat"><i class="dot" style="background:#0c8599" title="Local Realist"></i>Local Realist</span></td><td><i class="dot" style="background:#0c8599" title="Local Realist"></i></td><td><i class="dot" style="background:#0c8599" title="Local Realist"></i></td><td><i class="dot" style="background:#0c8599" title="Local Realist"></i></td><td><i class="dot" style="background:#0c8599" title="Local Realist"></i></td><td><i class="dot" style="background:#0c8599" title="Local Realist"></i></td><td><i class="dot" style="background:#0c8599" title="Local Realist"></i></td><td class="tot">6</td></tr></table></div>
+<h2>3 · How the facts moved</h2><p class="sub">Each claim's grade as successive stages checked it.</p><div class="evo">
+<div class="ev"><div class="claim">2,397 arrests on 17 Oct</div><div class="trail"><span class="g ver">CORROBORATED</span><span class="who">WG1</span><span class="arr">→</span><span class="g con">CONTRADICTED</span><span class="who">Fact desk 2</span><span class="arr">→</span><span class="g ver">CORROBORATED</span><span class="who">Fact desk 3: latest provisional count, superseding 1,200 → 1,800</span></div></div>
+<div class="ev"><div class="claim">&#x27;Mid-sized cities are safer&#x27;</div><div class="trail"><span class="g cre">CREDIBLE</span><span class="who">openings</span><span class="arr">→</span><span class="g con">CONTRADICTED</span><span class="who">Fact desk 2 (Grenoble, Rennes, Brest)</span></div></div>
+<div class="ev"><div class="claim">Interior Ministry denied Mediapart&#x27;s report</div><div class="trail"><span class="g unk">NOT FOUND</span><span class="who">first report&#x27;s brief</span><span class="arr">→</span><span class="g cre">CREDIBLE</span><span class="who">WG1: only as its reply quoted inside Mediapart&#x27;s article</span></div></div>
+<div class="ev"><div class="claim">Education budget debated &#x27;12 Nov&#x27;</div><div class="trail"><span class="g all">ALLEGED</span><span class="who">first report</span><span class="arr">→</span><span class="g unk">UNKNOWN</span><span class="who">WG2: and only debated at all if Part 1 passes</span></div></div>
+<div class="ev"><div class="claim">Stun grenades cleared for use again on 16 Oct</div><div class="trail"><span class="g cre">CREDIBLE</span><span class="who">WG3 verifier</span><span class="arr">→</span><span class="g unk">UNKNOWN</span><span class="who">Fact desk 5: only the ASSD model was ever suspended</span></div></div>
+<div class="ev"><div class="claim">Joining an undeclared march is an offence</div><div class="trail"><span class="g unk">OPEN</span><span class="who">R3 · B request</span><span class="arr">→</span><span class="g con">CONTRADICTED</span><span class="who">Fact desk 5 / audit: Cour de cassation 2022 and 2023</span></div></div>
+</div>
+<h2>4 · What converged, what stayed open</h2><div class="conv">
+<div class="card"><h4 style="color:var(--ok)">Converged</h4><ul><li>Four strands, not one movement</li><li>Advice depends on your goal; no side taken on any demand</li><li>Abstaining is legitimate</li><li>Your profile can override everything else</li></ul></div>
+<div class="card"><h4 style="color:var(--warn)">Settled late</h4><ul><li>Non-EU, temporary card at a union march: Avoid</li><li>Non-EU, 10-year card: Caution</li><li>Adult at an undeclared daytime event: a decision rule, not a grade</li><li>Minor at a lycéen march in the holidays: Avoid</li></ul></div>
+<div class="card"><h4 style="color:var(--loop)">Still open</h4><ul><li>Abstainer vs Local Realist: stay home until 5 Nov, or decide by city and hour?</li><li>Does a strike&#x27;s size shape the budget text under 49.3?</li><li>Does the 17 Oct grievance need the street, given the inquiry?</li></ul></div>
+</div>
+<footer>How Council 2 reached its verdict · 2026-10-20</footer>
+</main></body></html>

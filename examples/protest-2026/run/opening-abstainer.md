@@ -1,0 +1,15 @@
+# Opening position — Abstainer
+
+## 1. Position
+**By default, skip the street actions between now and 4 Nov.** If you share the demands of one strand, do something low-exposure for that strand only. Go into the street only for the declared, union-run 5 Nov march, and only if *all* of these are true: you share strand (c) or (d); you are not a minor; you are not a non-EU permit holder or asylum seeker; and you can leave before the march disperses. **If your main motive is anger at 17 Oct (strand d), stay home.** The Assemblée commission of inquiry is the channel that can actually establish what happened.
+
+## 2. Arguments
+**a) The risk is concentrated and lasts, and you can't choose your neighbours.** The official count is 2,397 arrests nationally [VERIFIED] and 123 people jailed [VERIFIED]. Serious injuries include a hand torn off, an eye lost and a head wound [VERIFIED]. No one counts injured protesters [UNKNOWN], so the true toll is undercounted, not zero. Kettling is lawful and in current use [VERIFIED], so careful behaviour does not protect you if the people next to you turn violent. An arrest alone leaves a TAJ police-file entry that is not deleted automatically [VERIFIED core]. For non-EU residents, that entry is the highest-stakes risk in this whole question [VERIFIED law / CREDIBLE practice] (WG1 §4, WG3 §1–2, §4).
+
+**b) Anger at 17 Oct has a better venue than the street.** The commission can compel witnesses and take testimony under oath, every group backed it, and it targets a report by year-end [VERIFIED]. Both deaths are unexplained [VERIFIED/CREDIBLE], and the RT note is a single-source allegation [ALLEGED]. Marching on anger alone means marching on a story that is not yet established. It also lends your body to the Gilets jaunes "Acte II" dates (24 and 31 Oct). Those dates have no platform, their legal status is undecided [UNKNOWN], and they fall in cities under curfew (WG1 §1–3, §5; WG2 §2b).
+
+**c) Your marginal effect on the outcome is small and can't be measured.** Whatever happens in the street, the budget's fate depends on 49.3 and the RN's choice on censure [CREDIBLE]. The government's announcement on education was redeployed TZR substitutes, not new posts [CREDIBLE]. No post-17 Oct poll exists [UNKNOWN]. Your absence from a crowd of hundreds of thousands costs the cause almost nothing, while your arrest costs you a great deal (WG2 §1, §4–5).
+
+## 3. Information requests
+1. Did part 1 of the PLF pass today, 20 Oct? My search found no result ([NosParlementaires](https://nosparlementaires.fr/actualites/budget-2027-dossier-plf-88-articles-ce-que-les-deputes-ont-deja-vote), [Legiwatch](https://www.legiwatch.fr/calendrier-plf-interactif/)). If it failed, the education mission is never debated in the Assemblée, which further weakens the case for a street-pressure window.
+2. Is there any count of protester arrests or injuries from earlier *declared union* marches (13 Oct)? If those marches were near-zero risk, my threshold for 5 Nov drops.

@@ -1,0 +1,6 @@
+Round 1 Room A: Expansionist, First Principles, Local Realist, Outsider
+Round 1 Room B: Abstainer, Contrarian, Local Realist, Outsider
+Round 2 Room A: Contrarian, Expansionist, First Principles, Local Realist
+Round 2 Room B: Contrarian, First Principles, Local Realist, Outsider
+Round 3 Room A: Abstainer, Executor, First Principles, Local Realist
+Round 3 Room B: Abstainer, Contrarian, First Principles, Local Realist
