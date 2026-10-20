@@ -49,6 +49,7 @@ Overrides:
 | | Quick | Standard | Deep | Full |
 |---|---|---|---|---|
 | **Research** | none | 1–2 researchers, one brief | 3 working groups, each researcher → adversarial verifier | 3–4 working groups, each researcher → verifier |
+| **Expert panels** (`experts.md`) | — | 1 domain × 2 experts | 2–3 domains × 2 experts | 3–4 domains × 2–3 experts |
 | **Seats** | 5 core | 5 core + 1 chosen | 7 (5 core + Status-quo + 1 context/specialist) | 7–9 |
 | **Debate** | openings | openings → 1 rebuttal round | openings → 2 rounds × 2 rooms (≈60% of seats each, random, balanced) | openings → 3 rounds × 2 rooms; last round includes a red-team room |
 | **Fact desk** | — | on request | between every round | between every round |
@@ -57,15 +58,17 @@ Overrides:
 | **Chairman** | yes | yes | yes (separate agent) | yes (separate agent) |
 | **Audit** | — | light self-check against the charter | internal audit → revision | internal audit → revision; offer external review → v2 |
 | **Outputs** | report + transcript | report + transcript | report + process map + transcript + run folder | same, plus revision history |
-| **Agents (approx.)** | ~7 | ~12–15 | ~22–28 | ~30–40 |
+| **Agents (approx.)** | ~7 | ~14–17 | ~26–34 | ~36–50 |
 | **Duration (approx.)** | 2–4 min | 6–10 min | 15–25 min | 25–45 min |
 
 Why only one peer reviewer at Quick: five reviewers with the same prompt and no persona produce near-identical reviews (observed in testing: 5 of 5 picked the same "strongest" and "weakest" response). One reviewer gives the same signal for a fifth of the cost.
 
+Agent counts include expert hearings (each hearing = one agent per expert). Design / Build mode adds an architect and its revisions (about 3–5 more agents at Deep/Full); see `modes.md`.
+
 ## 5. Smaller and larger variants
 
 Build them from the recommended configuration:
-- **Smaller:** drop one level, *or* keep the level and remove one round / one working group / two seats. Say what is lost in one line (e.g. "no verification of facts", "no rebuttal").
-- **Larger:** add one level, *or* keep the level and add a round, a red-team room, a working group or a specialist seat. Say what is gained in one line.
+- **Smaller:** drop one level, *or* keep the level and remove one round / one working group / one expert domain / two seats. Say what is lost in one line (e.g. "no verification of facts", "no rebuttal"). Never drop below two experts in a domain: drop the whole domain instead.
+- **Larger:** add one level, *or* keep the level and add a round, a red-team room, a working group, an expert domain, a third (critical) expert in a contested domain, or a specialist seat. Say what is gained in one line.
 
 Never offer a variant that breaks an override (e.g. no "Quick" when fresh facts are needed) unless you flag the trade-off explicitly.

@@ -29,7 +29,8 @@ Write once to `<run>/room-prompt.md`:
 
 ```
 You are the MODERATOR and SCRIBE of a council room. Read <run>/charter.md (binding),
-the research files, every fact-desk file present (later ones override earlier ones),
+the research files, every fact-desk and hearing file present (later ones override earlier
+ones; expert disagreements stay visible),
 and the opening position of each member in your room. Also read the previous room
 outputs listed below.
 
@@ -44,11 +45,12 @@ Output file (≤800 words):
 ## Debate (condensed, speaker-labelled)
 ## Agreements
 ## Live disagreements (who vs who, and the crux)
-## Information requests (max 3, precise; or "none")
+## Information requests (max 3, precise; or "none")   → fact desk
+## Expert requests (max 3, precise, with the domain; or "none")   → expert hearing
 ## Reframe flag (YES/NO — YES only if the question or the research is fundamentally
    wrong and triage must be redone; explain)
 
-Save to the output path and return the last four sections.
+Save to the output path and return the last five sections.
 ```
 
 Each room call adds: room id, members, previous room outputs, round focus, output path (`<run>/r<round>-room<A|B>.md`).

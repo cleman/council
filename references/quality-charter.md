@@ -19,6 +19,13 @@ Use this scale, and only claim what the method actually achieved:
 - Grade consistently: elementary, uncontroversial points of law or fact should not be under-graded while contested claims are over-graded.
 - When a later check changes a grade, record the change (it appears in the "how the facts moved" panel).
 
+## 1b. Never on a single source
+
+- **No claim rests on one source.** A claim with only one source is capped at **ALLEGED**, whoever brings it (a working group, an expert, a seat, the chairman). A single-source claim cannot by itself justify a recommendation, a required design change or a risk rating.
+- **Sources must be independent:** different origin, not the same wire story, study or press release relayed several times.
+- **Expert domains have at least two experts**, each with a different source base (academic & official / practice & field / critical & independent). See `experts.md`.
+- **Experts inform, never recommend.** Disagreement between experts is reported, not averaged away.
+
 ## 2. Tag sources by leaning — symmetrically
 
 When a source has a known editorial or political leaning, tag it, **whichever side**: right-leaning, left-leaning, state-owned, partisan, activist, corporate, trade body. Tag public broadcasters and wire services too ("public broadcaster", "state agency"). Never tag one side and not the other.
