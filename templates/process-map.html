@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="{{LANG}}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{TITLE}}</title>
+<style>
+:root{
+  --bg:#f7f7f5;--fg:#1c1c1e;--muted:#6b6b70;--line:#dcdcd8;--card:#ffffff;--soft:#f0f0ec;
+  --accent:#3b5bdb;--fact:#0b7285;--factbg:#e3f6f8;--loop:#ae3ec9;
+  --ok:#2f9e44;--warn:#d9480f;--bad:#c92a2a;--unk:#868e96;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#121214;--fg:#ececef;--muted:#9a9aa2;--line:#2e2e34;--card:#1b1b1f;--soft:#222227;
+  --accent:#7c95ff;--fact:#3bc9db;--factbg:#0f2a2f;--loop:#da77f2;}}
+:root[data-theme="dark"]{
+  --bg:#121214;--fg:#ececef;--muted:#9a9aa2;--line:#2e2e34;--card:#1b1b1f;--soft:#222227;
+  --accent:#7c95ff;--fact:#3bc9db;--factbg:#0f2a2f;--loop:#da77f2;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+main{max-width:1040px;margin:0 auto;padding:32px 16px 56px}
+h1{font-size:1.7rem;margin:0 0 4px;line-height:1.2}
+h2{font-size:1.15rem;margin:44px 0 6px}
+.lede{color:var(--muted);margin:0 0 18px}
+.sub{color:var(--muted);font-size:.9rem;margin:0 0 14px}
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:18px 0 6px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.stat b{display:block;font-size:1.6rem;line-height:1.1}
+.stat span{color:var(--muted);font-size:.82rem}
+/* legend */
+.legend{display:flex;flex-wrap:wrap;gap:8px 14px;margin:10px 0 0;font-size:.85rem}
+.seat{display:inline-flex;align-items:center;gap:6px}
+.dot{width:12px;height:12px;border-radius:50%;display:inline-block;flex:none}
+/* flow */
+.flow{position:relative;display:grid;grid-template-columns:1fr 250px;gap:0 18px}
+.lane-h{font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:0 0 8px}
+.lane-h.fact{color:var(--fact)}
+.stage{grid-column:1;position:relative;padding:0 0 26px 34px}
+.stage::before{content:"";position:absolute;left:11px;top:26px;bottom:0;width:2px;background:var(--line)}
+.stage:last-of-type::before{display:none}
+.num{position:absolute;left:0;top:2px;width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;font-size:.8rem;font-weight:700;display:grid;place-items:center}
+.stage h3{margin:0 0 8px;font-size:1rem}
+.stage h3 small{color:var(--muted);font-weight:500}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.row{display:grid;gap:10px}
+.r3{grid-template-columns:repeat(3,1fr)}.r2{grid-template-columns:repeat(2,1fr)}
+.mini{font-size:.86rem}
+.mini b{display:block;margin-bottom:2px}
+.pipe{display:flex;align-items:center;gap:6px;font-size:.78rem;color:var(--muted);margin:4px 0 6px}
+.pipe i{font-style:normal;background:var(--soft);border-radius:6px;padding:1px 7px;color:var(--fg)}
+.out{font-size:.84rem;color:var(--muted);margin-top:6px;border-top:1px dashed var(--line);padding-top:6px}
+.out strong{color:var(--fg)}
+.room .members{display:flex;gap:4px;margin:4px 0 6px}
+.room .members .dot{width:16px;height:16px;border:2px solid var(--card);box-shadow:0 0 0 1px var(--line)}
+.focus{font-size:.84rem;font-style:italic;color:var(--muted)}
+.flag{display:inline-block;font-size:.72rem;font-weight:700;border-radius:99px;padding:1px 8px;margin-top:6px;border:1px solid var(--loop);color:var(--loop)}
+.seats7{display:flex;flex-wrap:wrap;gap:6px}
+.seats7 .s{display:flex;align-items:center;gap:6px;background:var(--soft);border-radius:99px;padding:3px 10px 3px 6px;font-size:.82rem}
+.new{font-size:.66rem;font-weight:700;color:var(--accent);margin-left:2px}
+/* fact desk lane */
+.desk{grid-column:2;align-self:start;background:var(--factbg);border:1px solid var(--fact);border-radius:12px;padding:10px 12px;font-size:.83rem;position:relative;margin-bottom:26px}
+.desk::before{content:"";position:absolute;left:-19px;top:18px;width:18px;border-top:2px dashed var(--fact)}
+.desk b{color:var(--fact);display:block;margin-bottom:3px}
+.desk ul{margin:0;padding-left:16px}
+.desk li{margin:2px 0}
+.spacer{grid-column:2}
+/* loop */
+.loop{grid-column:1/-1;border:2px dashed var(--loop);border-radius:12px;padding:10px 14px;margin:0 0 26px;font-size:.88rem;display:flex;gap:12px;align-items:center}
+.loop svg{flex:none}
+/* matrix */
+.mx{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:.86rem}
+.mx th,.mx td{padding:8px 6px;text-align:center;border-bottom:1px solid var(--line)}
+.mx th:first-child,.mx td:first-child{text-align:left;padding-left:12px;white-space:nowrap}
+.mx th{background:var(--soft);font-weight:600;font-size:.8rem}
+.mx td .dot{width:14px;height:14px}
+.mx .tot{font-weight:700}
+.empty{color:var(--line)}
+/* fact evolution */
+.evo{display:grid;gap:8px}
+.ev{display:grid;grid-template-columns:minmax(150px,1.1fr) 3fr;gap:12px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.ev .claim{font-size:.88rem;font-weight:600}
+.trail{display:flex;flex-wrap:wrap;align-items:center;gap:4px;font-size:.78rem}
+.trail .arr{color:var(--muted)}
+.g{border-radius:99px;padding:2px 8px;font-weight:700;color:#fff;white-space:nowrap}
+.g.ver{background:var(--ok)}.g.cre{background:#5c940d}.g.all{background:var(--warn)}.g.con{background:var(--bad)}.g.unk{background:var(--unk)}
+.who{color:var(--muted);font-size:.74rem}
+/* convergence */
+.conv{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.conv .card h4{margin:0 0 6px;font-size:.9rem}
+.conv ul{margin:0;padding-left:18px;font-size:.85rem}
+.verdict{background:var(--accent);color:#fff;border-radius:12px;padding:14px 16px}
+.verdict .out{color:#e7ebff;border-top-color:rgba(255,255,255,.35)}
+.verdict .out strong{color:#fff}
+footer{margin-top:40px;color:var(--muted);font-size:.82rem;border-top:1px solid var(--line);padding-top:12px}
+@media (max-width:760px){
+  .flow{grid-template-columns:1fr}
+  .desk{grid-column:1;margin:-12px 0 26px 34px}
+  .desk::before{display:none}
+  .spacer{display:none}
+  .r3,.r2,.conv{grid-template-columns:1fr}
+  .ev{grid-template-columns:1fr}
+  .mx{font-size:.78rem}
+}
+</style>
+</head>
+<body><main>
+{{BODY}}
+</main></body></html>
