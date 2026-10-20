@@ -2,5 +2,9 @@ config.json
 *.log
 .DS_Store
 node_modules/
-council-report-*.html
-council-transcript-*.md
+__pycache__/
+# outputs of real runs (examples/ keeps its own)
+/council-report-*.html
+/council-process-*.html
+/council-transcript-*.md
+/council-runs/
